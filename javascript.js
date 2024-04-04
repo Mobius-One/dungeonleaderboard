@@ -12,6 +12,7 @@ function calculateDuration(startTime, endTime) {
 
   return hours;
 }
+
 function fetchLeaderboard() {
   fetch('https://mobius-one.github.io/leaderboard_json/leaderboard.json')
     .then(response => {
@@ -27,8 +28,6 @@ function fetchLeaderboard() {
           const durationA = calculateDuration(a.startTime, a.endTime);
           const durationB = calculateDuration(b.startTime, b.endTime);
           return durationA - durationB;
-        } else {
-          //
         }
       });
 
@@ -36,17 +35,21 @@ function fetchLeaderboard() {
 
       let tableHeader = document.createElement("thead");
       let headerRow = document.createElement("tr");
+      let numberHeader = document.createElement("th");
+      numberHeader.textContent = "#";
       let nameHeader = document.createElement("th");
       nameHeader.textContent = "Captain";
       let completedLevelsHeader = document.createElement("th");
       completedLevelsHeader.textContent = "Completed Levels";
       let durationHeader = document.createElement("th");
       durationHeader.textContent = "Duration";
+      headerRow.appendChild(numberHeader);
       headerRow.appendChild(nameHeader);
       headerRow.appendChild(completedLevelsHeader);
       headerRow.appendChild(durationHeader);
       tableHeader.appendChild(headerRow);
       table.appendChild(tableHeader);
+      
       for (let i = 0; i < data.length; i++) {
         let cap = data[i];
         let name = cap["twitchDisplayName"];
@@ -54,9 +57,9 @@ function fetchLeaderboard() {
         let startTime = cap["startTime"];
         let endTime = cap["endTime"];
         let duration = calculateDuration(startTime, endTime);
-
         let row = document.createElement("tr");
-
+        let numberCell = document.createElement("td");
+        numberCell.textContent = i + 1;
         let nameCell = document.createElement("td");
         nameCell.textContent = name;
         let completedLevelsCell = document.createElement("td");
@@ -64,6 +67,7 @@ function fetchLeaderboard() {
         let durationCell = document.createElement("td");
         durationCell.textContent = duration.toFixed(2) + " hours";
 
+        row.appendChild(numberCell);
         row.appendChild(nameCell);
         row.appendChild(completedLevelsCell);
         row.appendChild(durationCell);
