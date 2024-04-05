@@ -79,6 +79,14 @@ function fetchLeaderboard() {
     .catch(error => {
       console.error('Error fetching JSON:', error);
     });
+
+    fetch('https://mobius-one.github.io/leaderboard_json/time.json')
+            .then(response => response.json())
+            .then(data => {
+                const utcTime = data.time;
+                document.getElementById('time_container').innerText = "Last update: " + utcTime + " UTC";
+            })
+            .catch(error => console.error('Error fetching data:', error));
 }
 
 window.addEventListener('load', fetchLeaderboard);
