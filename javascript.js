@@ -74,8 +74,7 @@ function fetchLeaderboard() {
         let completedLevelsCell = document.createElement("td");
         completedLevelsCell.textContent = completedLevels;
         let durationCell = document.createElement("td");
-        durationCell.textContent = 
-
+        durationCell.textContent = duration
         row.appendChild(numberCell);
         row.appendChild(nameCell);
         row.appendChild(completedLevelsCell);
