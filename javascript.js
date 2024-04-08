@@ -1,9 +1,12 @@
 function calculateDuration(startTime, endTime) {
+  if(!endTime) {
+    return 9999999
+  }
   const startDate = new Date(startTime);
   const endDate = new Date(endTime);
 
   if (isNaN(startDate) || isNaN(endDate)) {
-    return 9999;
+    return 9999999;
   }
 
   const durationMs = endDate - startDate;
@@ -56,7 +59,13 @@ function fetchLeaderboard() {
         let completedLevels = cap["completedLevels"];
         let startTime = cap["startTime"];
         let endTime = cap["endTime"];
-        let duration = calculateDuration(startTime, endTime);
+        let durationTime = calculateDuration(startTime, endTime);
+        let duration = ""
+        if (durationTime == 9999999) {
+          duration = "Dungeon in progress"
+        } else {
+          duration = durationTime.toFixed(2) + " hours";
+        }
         let row = document.createElement("tr");
         let numberCell = document.createElement("td");
         numberCell.textContent = i + 1;
@@ -65,7 +74,7 @@ function fetchLeaderboard() {
         let completedLevelsCell = document.createElement("td");
         completedLevelsCell.textContent = completedLevels;
         let durationCell = document.createElement("td");
-        durationCell.textContent = duration.toFixed(2) + " hours";
+        durationCell.textContent = 
 
         row.appendChild(numberCell);
         row.appendChild(nameCell);
